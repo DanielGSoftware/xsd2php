@@ -33,6 +33,6 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          composer require --no-interaction --no-update
+          composer install --no-interaction --no-update
       - name: Execute Tests
         run: ./vendor/bin/phpunit
