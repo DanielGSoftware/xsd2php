@@ -1,6 +1,6 @@
 name: Tests
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   test:
@@ -35,4 +35,4 @@ jobs:
         run: |
           composer require --no-interaction --no-update
       - name: Execute Tests
-        run: ./vendor/bin/phpunit --testdox
+        run: ./vendor/bin/phpunit
