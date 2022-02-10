@@ -34,7 +34,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          composer update "phpunit/phpunit:${{ matrix.phpunit }}
+          composer update "phpunit/phpunit:${{ matrix.phpunit }}"
           composer install --${{ matrix.stability}} --no-interaction
       - name: Execute Tests
         run: ./vendor/bin/phpunit
