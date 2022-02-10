@@ -12,7 +12,7 @@ jobs:
         stability: [prefer-lowest, prefer-stable]
         phpunit: [^6.0, ^7.0, ^8.0, ^9.0]
 
-    name: PHP 7.2
+    name: PHP 7.2 - phpunit ${{ matrix.phpunit }}
 
     steps:
 
@@ -34,7 +34,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          composer update "phpunit/phpunit:${{ matrix.phpunit }}"
-          composer install --${{ matrix.stability}} --no-interaction
+          composer require "phpunit/phpunit:${{ matrix.phpunit }}"
+          composer update --${{ matrix.stability}} --no-interaction
       - name: Execute Tests
         run: ./vendor/bin/phpunit
