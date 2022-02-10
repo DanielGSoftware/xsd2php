@@ -9,9 +9,10 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.2, 7.3, 7.4, 8.0, 8.1]
+        stability: [prefer-lowest, prefer-stable]
+        phpunit: [^6.0, ^7.0, ^8.0, ^9.0]
 
-    name: PHP ${{ matrix.php }}
+    name: PHP 7.2
 
     steps:
 
@@ -22,17 +23,18 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.composer/cache/files
-          key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
+          key: dependencies-stability-${{ matrix.stability }}-phpunit-${{ matrix.phpunit }}-composer-${{ hashFiles('composer.json') }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: 7.2
           extensions: curl, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, iconv, mcrypt
           coverage: none
 
       - name: Install Dependencies
         run: |
-          composer install --no-interaction
+          composer update "phpunit/phpunit:${{ matrix.phpunit }}
+          composer install --${{ matrix.stability}} --no-interaction
       - name: Execute Tests
         run: ./vendor/bin/phpunit
